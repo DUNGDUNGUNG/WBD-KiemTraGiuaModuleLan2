@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+    <meta charset="UTF-8">
+    <title>Search name receptionist</title>
+</head>
+<body>
+<h2>Search name receptionist</h2>
+<p>
+    <a th:href="@{/receptionists/list}">Back to receptionist list</a>
+</p>
+<div class="notify">
+    <!--/*@thymesVar id="success" type="com"*/-->
+    <div th:if="${success}">
+        <span th:text="${success}"></span>
+    </div>
+</div>
+<hr>
+<table id="receptionists">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Address</th>
+        <th>Hobby</th>
+        <th>Avatar</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row,rowStat : ${receptionists}">
+        <td th:text="${row.getName()}"></td>
+        <td th:text="${row.getAge()}"></td>
+        <td th:text="${row.getAddress()}"></td>
+        <td th:text="${row.getHobby()}"></td>
+        <td><img width="200px" height="200px" th:src="@{'/image/' + ${row.getAvatar()}}"></td>
+        <td><a th:href="@{/receptionists/{id}/edit(id=${row.getId()})}">edit</a></td>
+        <td><a th:href="@{/receptionists/{id}/delete(id=${row.getId()})}">delete</a></td>
+        <td><a th:href="@{/receptionists/{id}/view(id=${row.getId()})}">view</a></td>
+    </tr>
+    </tbody>
+</table>
+<footer th:replace="layout :: footer"></footer>
+</body>
+</html>

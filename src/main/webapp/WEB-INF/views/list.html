@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+    <meta charset="UTF-8">
+    <title>List receptionist</title>
+</head>
+<body>
+<h2>List receptionist</h2>
+<p>
+    <a th:href="@{/receptionists/create}">Add new receptionist</a>
+</p>
+<div class="notify">
+    <!--/*@thymesVar id="success" type="com"*/-->
+    <div th:if="${success}">
+        <span th:text="${success}"></span>
+    </div>
+</div>
+<div>
+    <form th:action="@{/receptionists/search}" method="post">
+        <label id="label">
+            <input type="text" name="search">
+            <input type="submit" value="Search">
+        </label><br>
+    </form>
+</div>
+<hr>
+<table id="receptionists">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Address</th>
+        <th>Hobby</th>
+        <th>Avatar</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row,rowStat : ${receptionists}">
+        <td th:text="${row.getName()}"></td>
+        <td th:text="${row.getAge()}"></td>
+        <td th:text="${row.getAddress()}"></td>
+        <td th:text="${row.getHobby()}"></td>
+        <td><img width="200px" height="200px" th:src="@{'/image/' + ${row.getAvatar()}}"></td>
+<!--        <td th:text="${row.getAvatar()}"></td>-->
+        <td><a th:href="@{/receptionists/{id}/edit(id=${row.getId()})}">edit</a></td>
+        <td><a th:href="@{/receptionists/{id}/delete(id=${row.getId()})}">delete</a></td>
+        <td><a th:href="@{/receptionists/{id}/view(id=${row.getId()})}">view</a></td>
+    </tr>
+    </tbody>
+</table>
+<footer th:replace="layout :: footer"></footer>
+</body>
+</html>
